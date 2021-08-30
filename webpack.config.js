@@ -1,5 +1,6 @@
-let path = require('path');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+let autoprefixer = require('autoprefixer');
 
 let conf = {
     entry: './src/main.js',
@@ -31,7 +32,7 @@ let conf = {
                 }
             },
             {
-                test: /\.module\.css$/,
+                test: /\.scoped\.css$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -52,7 +53,7 @@ let conf = {
                 ]
             },
             {
-                test: /^((?!\.module).)*css$/,
+                test: /^((?!\.scoped).)*css$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -62,7 +63,28 @@ let conf = {
                     }, 
                     'css-loader'
                 ]
-            }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    autoprefixer({
+                                        browsers:['ie >= 8', 'last 4 version']
+                                    })
+                                ]
+                            },
+                        },
+                    },
+                    'sass-loader',
+                    
+                ]
+              },
         ]
     },
     resolve: {

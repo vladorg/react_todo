@@ -1,10 +1,9 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import styles from './home.module.css';
 import itemsModel from '~s/items';
 
 
-// проблема с добавлением нового пункта. Решить не смог
+// проблема с добавлением нового пункта. Решено в index, этот файл для фиксации проблемы.
 
 
 @observer class Home extends React.Component {
