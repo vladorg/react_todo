@@ -1,0 +1,23 @@
+.alert
+  position: relative
+  background: #eee
+  padding: 32px
+  z-index: 100
+  border: 1px solid #777
+  border-radius: 4px
+  &__close
+    position: absolute
+    top: 4px
+    right: 4px
+    border: 1px solid #000
+    cursor: pointer
+    &:hover
+      background: #fff
+  &__text
+  &:not(:last-child)
+    margin-bottom: 16px
+
+.alerts
+  position: fixed
+  top: 16px
+  right: 16px

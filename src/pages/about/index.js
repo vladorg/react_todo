@@ -13,7 +13,7 @@ export default class extends React.Component {
         <div className="content">
           <p>This is a my first react application.</p>
           <p>Author: <span>Vladislav Pshenichniy</span>.</p>
-          <p>Current version: <span>2.0</span>.</p>
+          <p>Current version: <span>3.0</span>.</p>
           <div className="history">
           <h3>Versions history:</h3>
             <table className={styles.table+' table'}>
@@ -25,7 +25,16 @@ export default class extends React.Component {
               </thead>
               <tbody>
                 <tr>
-                  <td>2.0 <br/>(current)</td>
+                  <td>3.0 <br/>(current)</td>
+                  <td>
+                    <ul>
+                      <li>- add actions alerts</li>
+                      <li>- add withStore HOC</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2.0</td>
                   <td>
                     <ul>
                       <li>- update webpack config. Added <strong>sass</strong> and <strong>postcss</strong> loaders. Added autoprefixer;</li>

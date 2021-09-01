@@ -1,14 +1,15 @@
 import React from 'react';
-import {observer} from 'mobx-react';
-import itemsModel from '~s/items';
+import withStore from '~/hocs/withStore';
+import Alerts from '~c/alerts';
 
-
-
-
-@observer class Home extends React.Component {
+class Home extends React.Component {
   
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    let stores = this.props.stores;
+
+    this.itemsModel = stores.itemsStore;
+    this.alertsModel = stores.alertsStore;
 
     this.state = {
       items: {},
@@ -17,7 +18,7 @@ import itemsModel from '~s/items';
 
     this.new_field = React.createRef(); // input for get value from him
 
-    itemsModel.items.map(item => { // init items from model
+    this.itemsModel.items.map(item => { // init items from model
       this.state.items[item.id] = {
         text: item.text
       }
@@ -26,6 +27,7 @@ import itemsModel from '~s/items';
     console.log('constructor...');
       
   }
+  
 
   // activate empty field for add new item
   new() {
@@ -42,8 +44,8 @@ import itemsModel from '~s/items';
       this.new_field.current.value = 'Empty note...';
     }
     let updatedItems = {};
-    itemsModel.add(this.new_field.current.value);
-    itemsModel.items.map(item => {
+    this.itemsModel.add(this.new_field.current.value);
+    this.itemsModel.items.map(item => {
       updatedItems[item.id] = {
         text: item.text
       }
@@ -54,6 +56,8 @@ import itemsModel from '~s/items';
       items: updatedItems,
       new: false
     });
+
+    this.alertsModel.show('save');
   }
 
 
@@ -73,48 +77,51 @@ import itemsModel from '~s/items';
       let items = {...this.state.items};
       items[id].text = 'Empty note...';
       this.setState({items});
-      itemsModel.save(id, 'Empty note...');
+      this.itemsModel.save(id, 'Empty note...');
     } else {
-      itemsModel.save(id, this.state.items[id].text);
+      this.itemsModel.save(id, this.state.items[id].text);
     }
+
+    this.alertsModel.show('save');
     
   }
 
   // remove one item. If items count will be 0 - show empty field for a add new item
   remove(id) {
-    itemsModel.remove(id);
-    itemsModel.isEmpty ? this.new() : null;
+    this.itemsModel.remove(id);
+    this.itemsModel.isEmpty ? this.new() : null;
+    this.alertsModel.show('remove');
   }
 
 
   // remove items from model & show empty field for a add new item
   removeAll() {
-    itemsModel.removeAll();
+    this.itemsModel.removeAll();
     this.new();
+    this.alertsModel.show('remove_all');
   }
   
 
-  // render. logged it in console and showed current state
+  // render. logged it in console
   render() {      
 
     console.log('render');
-    console.log(this.state);
 
-    let empty_text = itemsModel.isEmpty ? 'List is empty now... Please, add a new note.' : null;
+    let empty_text = this.itemsModel.isEmpty ? 'List is empty now... Please, add a new note.' : null;
 
 
     // generate empty field
     let emptyItem = 
       <div className="item">
         <div className="item__wrap">
-          <span>{itemsModel.items.length + 1}.</span>
+          <span>{this.itemsModel.items.length + 1}.</span>
           <input ref={this.new_field}/>
         </div>
         <button className="btn" onClick={() => this.addNew()}>Save</button>
       </div>;
 
     // generate items list
-    let itemsList = itemsModel.items.map((it, i) => {
+    let itemsList = this.itemsModel.items.map((it, i) => {
 
 
       // button is a different in the active state
@@ -122,7 +129,7 @@ import itemsModel from '~s/items';
       if (it.active) {
         btn = <button className="btn" onClick={() => this.save(it.id)}>Save</button>;               
       } else {
-        btn = <button className="btn" onClick={() => itemsModel.activate(it.id)}>Edit</button>;  
+        btn = <button className="btn" onClick={() => this.itemsModel.activate(it.id)}>Edit</button>;  
       }
 
       return (
@@ -164,9 +171,10 @@ import itemsModel from '~s/items';
 
           <div className="controls">
             <button className="btn" onClick={() => this.new()} disabled={this.state.new}>Add new</button>
-            <button className="btn" onClick={() => this.removeAll()} disabled={itemsModel.isEmpty}>Remove all</button>
+            <button className="btn" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>Remove all</button>
           </div>
 
+          <Alerts alerts={this.props.stores.alertsStore}/>
 
         </div>
       </div>
@@ -177,4 +185,4 @@ import itemsModel from '~s/items';
 
 }
 
-export default Home;
+export default withStore(Home);

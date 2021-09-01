@@ -1,6 +1,10 @@
 import {observable, computed, action} from 'mobx';
 
-class Items {
+export default class {
+
+  constructor(rootStore) {
+    this.rootStore = rootStore;
+  }
 
   // all items
   @observable items = [
@@ -84,6 +88,3 @@ class Items {
 
 
 }
-
-
-export default new Items();
