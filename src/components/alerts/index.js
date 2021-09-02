@@ -15,7 +15,6 @@ import {observer} from 'mobx-react';
 
       setTimeout(() => {
         this.alertsModel.hide(al.name);
-        console.log(1);
       }, 3000);
 
       return (

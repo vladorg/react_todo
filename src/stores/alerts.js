@@ -21,6 +21,11 @@ export default class {
       name: 'remove_all',
       content: 'All items has been removed!',
       active: false
+    },
+    {
+      name: 'error',
+      content: 'Something went wrong... Try again!',
+      active: false
     }
   ];
 

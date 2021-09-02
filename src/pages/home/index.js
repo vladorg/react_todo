@@ -1,31 +1,42 @@
 import React from 'react';
 import withStore from '~/hocs/withStore';
 import Alerts from '~c/alerts';
+import EmptyField from './emptyField';
+import Loader from '~c/loaders/default';
+import ErrorLoad from '~c/errors/load';
 
 class Home extends React.Component {
   
   constructor(props) {
     super(props);
-    let stores = this.props.stores;
 
-    this.itemsModel = stores.itemsStore;
-    this.alertsModel = stores.alertsStore;
+    this.itemsModel = this.props.stores.itemsStore;
+    this.alertsModel = this.props.stores.alertsStore;
+    this.new_field = React.createRef(); // input in a new empty item for get value from him
+
 
     this.state = {
-      items: {},
-      new: false
+      new: this.itemsModel.isEmpty,
+      loaded: false,
+      error: false
     };
 
-    this.new_field = React.createRef(); // input for get value from him
+    
+  }
 
-    this.itemsModel.items.map(item => { // init items from model
-      this.state.items[item.id] = {
-        text: item.text
-      }
-    }); 
 
-    console.log('constructor...');
-      
+  componentDidMount() {
+    if (!this.itemsModel.isLoaded) {
+      this.itemsModel.load().then(() => {
+        this.setState({loaded: true, new: this.itemsModel.isEmpty});
+        this.itemsModel.loaded = true;
+      }).catch(err => {
+        this.setState({loaded: true, error: true});
+        console.warn(err);
+      });
+    } else {
+      this.setState({loaded: true, new: this.itemsModel.isEmpty});
+    }
   }
   
 
@@ -37,92 +48,78 @@ class Home extends React.Component {
   }
 
 
-  // save new item. send value to model and initialize items state again like in constructor
-  // clear field value, hide field
+  // save new item on back & front
+  // clear field value, hide field, show alert
   addNew() {
-    if (this.new_field.current.value == '') {
-      this.new_field.current.value = 'Empty note...';
-    }
-    let updatedItems = {};
-    this.itemsModel.add(this.new_field.current.value);
-    this.itemsModel.items.map(item => {
-      updatedItems[item.id] = {
-        text: item.text
-      }
-    }); 
-    this.new_field.current.value = null;
-
-    this.setState({
-      items: updatedItems,
-      new: false
-    });
-
-    this.alertsModel.show('save');
+    this.itemsModel.add(this.new_field.current.value).then(() => {
+      this.new_field.current.value = null;  
+      this.setState({new: false});
+      this.alertsModel.show('save');
+    }).catch(e => {
+      this.alertsModel.show('error');
+    });       
   }
 
 
-  // change inner state item
-  // Note. item value state must be inner for a correct change
+  // change item text value in store
   change(e, id) {
-    let items = {...this.state.items};
-    items[id].text = e.target.value
-    this.setState({items});
+    this.itemsModel.change(id, e.target.value)
   }
 
 
-  // after change item value, when we click on "Save" - 
-  // - call a model action "@save" for a synchronization with it
+  // after change item value, when we click on "Save" - update item text on --back-- & show alert
   save(id) {
-    if (this.state.items[id].text == '') {
-      let items = {...this.state.items};
-      items[id].text = 'Empty note...';
-      this.setState({items});
-      this.itemsModel.save(id, 'Empty note...');
-    } else {
-      this.itemsModel.save(id, this.state.items[id].text);
-    }
-
-    this.alertsModel.show('save');
-    
+    this.itemsModel.save(id).then(() => {
+      this.alertsModel.show('save');  
+    }).catch(e => {
+      this.alertsModel.show('error');
+    });   
   }
 
-  // remove one item. If items count will be 0 - show empty field for a add new item
+
+  // remove one item from --back-- & front. If items count will be 0 - show empty field for a add new item & show alert
   remove(id) {
-    this.itemsModel.remove(id);
-    this.itemsModel.isEmpty ? this.new() : null;
-    this.alertsModel.show('remove');
+    this.itemsModel.remove(id).then(() => {
+      this.itemsModel.isEmpty ? this.new() : null;
+      this.alertsModel.show('remove');
+    }).catch(e => {
+      this.alertsModel.show('error');
+    });    
   }
 
 
-  // remove items from model & show empty field for a add new item
+  // remove items from --back-- & remove items from store & show empty field for a add new item & show alert
   removeAll() {
-    this.itemsModel.removeAll();
-    this.new();
-    this.alertsModel.show('remove_all');
+    this.itemsModel.removeAll().then(() => {
+      this.new();
+      this.alertsModel.show('remove_all');
+    }).catch(e => {
+      this.alertsModel.show('error');
+    });    
   }
   
 
-  // render. logged it in console
-  render() {      
-
-    console.log('render');
-
-    let empty_text = this.itemsModel.isEmpty ? 'List is empty now... Please, add a new note.' : null;
 
 
-    // generate empty field
-    let emptyItem = 
-      <div className="item">
-        <div className="item__wrap">
-          <span>{this.itemsModel.items.length + 1}.</span>
-          <input ref={this.new_field}/>
-        </div>
-        <button className="btn" onClick={() => this.addNew()}>Save</button>
-      </div>;
+
+
+
+
+
+
+  // render
+  render() {   
+           
+    if (!this.state.loaded) {
+      return <Loader/>
+    } else if (this.state.error) {
+      return <ErrorLoad/>
+    }
+
+    let emptyTxt = this.itemsModel.isEmpty ? 'List is empty now... Please, add a new note.' : null;
 
     // generate items list
     let itemsList = this.itemsModel.items.map((it, i) => {
-
 
       // button is a different in the active state
       let btn;
@@ -139,7 +136,7 @@ class Home extends React.Component {
             <input 
               className={!it.active ? "disabled" : null} 
               onChange={e => this.change(e, it.id)}
-              value={this.state.items[it.id].text} 
+              value={it.text} 
               readOnly={!it.active}
             />
           </div>        
@@ -150,39 +147,32 @@ class Home extends React.Component {
     });
 
 
+
+
+
     return (
       <div className="container">
-        <h1>To do list</h1>
-        
+        <h1>To do list</h1>        
         <div className="emptyText">
-          {empty_text}
+          {emptyTxt}
         </div>
-
         <div className="content">
-
           <div className="items">
-
             {itemsList}
-
-            {this.state.new ? emptyItem : null}
-            
-          
+            {this.state.new ? 
+              <EmptyField order={this.itemsModel.items.length + 1} item={this.new_field} save={() => this.addNew()} /> 
+              : null}          
           </div>
-
           <div className="controls">
             <button className="btn" onClick={() => this.new()} disabled={this.state.new}>Add new</button>
             <button className="btn" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>Remove all</button>
           </div>
 
           <Alerts alerts={this.props.stores.alertsStore}/>
-
         </div>
       </div>
     )
-
   }
-
-
 }
 
 export default withStore(Home);

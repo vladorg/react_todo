@@ -13,7 +13,7 @@ export default class extends React.Component {
         <div className="content">
           <p>This is a my first react application.</p>
           <p>Author: <span>Vladislav Pshenichniy</span>.</p>
-          <p>Current version: <span>3.0</span>.</p>
+          <p>Current version: <span>4.0</span>.</p>
           <div className="history">
           <h3>Versions history:</h3>
             <table className={styles.table+' table'}>
@@ -24,8 +24,16 @@ export default class extends React.Component {
                 </tr>
               </thead>
               <tbody>
+              <tr>
+                  <td>4.0 <br/>(current)</td>
+                  <td>
+                    <ul>
+                      <li>- add backend Api support</li>
+                    </ul>
+                  </td>
+                </tr>
                 <tr>
-                  <td>3.0 <br/>(current)</td>
+                  <td>3.0</td>
                   <td>
                     <ul>
                       <li>- add actions alerts</li>
