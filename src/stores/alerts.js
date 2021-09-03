@@ -4,27 +4,28 @@ export default class {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+    this.texts = this.rootStore.textsStore;
   }
 
   @observable alerts = [
     {
       name: 'save',
-      content: 'Saved successfull!',
+      content: this.texts.alert_save,
       active: false
     },
     {
       name: 'remove',
-      content: 'Removed successfull!',
+      content: this.texts.alert_remove,
       active: false
     },
     {
       name: 'remove_all',
-      content: 'All items has been removed!',
+      content: this.texts.alert_removeAll,
       active: false
     },
     {
       name: 'error',
-      content: 'Something went wrong... Try again!',
+      content: this.texts.alert_errorAction,
       active: false
     }
   ];

@@ -12,6 +12,7 @@ class Home extends React.Component {
 
     this.itemsModel = this.props.stores.itemsStore;
     this.alertsModel = this.props.stores.alertsStore;
+    this.TEXT = this.props.stores.textsStore;
     this.new_field = React.createRef(); // input in a new empty item for get value from him
 
 
@@ -19,9 +20,7 @@ class Home extends React.Component {
       new: this.itemsModel.isEmpty,
       loaded: false,
       error: false
-    };
-
-    
+    };    
   }
 
 
@@ -116,7 +115,7 @@ class Home extends React.Component {
       return <ErrorLoad/>
     }
 
-    let emptyTxt = this.itemsModel.isEmpty ? 'List is empty now... Please, add a new note.' : null;
+    let emptyTxt = this.itemsModel.isEmpty ? this.TEXT.home_emptyItems : null;
 
     // generate items list
     let itemsList = this.itemsModel.items.map((it, i) => {
@@ -124,9 +123,9 @@ class Home extends React.Component {
       // button is a different in the active state
       let btn;
       if (it.active) {
-        btn = <button className="btn" onClick={() => this.save(it.id)}>Save</button>;               
+        btn = <button className="btn" onClick={() => this.save(it.id)}>{this.TEXT.btn_save}</button>;               
       } else {
-        btn = <button className="btn" onClick={() => this.itemsModel.activate(it.id)}>Edit</button>;  
+        btn = <button className="btn" onClick={() => this.itemsModel.activate(it.id)}>{this.TEXT.btn_edit}</button>;  
       }
 
       return (
@@ -141,7 +140,7 @@ class Home extends React.Component {
             />
           </div>        
           {btn}
-          <button className="btn" onClick={() => this.remove(it.id)}>Remove</button>
+          <button className="btn" onClick={() => this.remove(it.id)}>{this.TEXT.btn_remove}</button>
         </div>
       )
     });
@@ -152,7 +151,7 @@ class Home extends React.Component {
 
     return (
       <div className="container">
-        <h1>To do list</h1>        
+        <h1>{this.TEXT.home_title}</h1>        
         <div className="emptyText">
           {emptyTxt}
         </div>
@@ -160,12 +159,17 @@ class Home extends React.Component {
           <div className="items">
             {itemsList}
             {this.state.new ? 
-              <EmptyField order={this.itemsModel.items.length + 1} item={this.new_field} save={() => this.addNew()} /> 
+              <EmptyField 
+                order={this.itemsModel.items.length + 1} 
+                textSave={this.TEXT.btn_save}
+                item={this.new_field} 
+                save={() => this.addNew()} 
+              /> 
               : null}          
           </div>
           <div className="controls">
-            <button className="btn" onClick={() => this.new()} disabled={this.state.new}>Add new</button>
-            <button className="btn" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>Remove all</button>
+            <button className="btn" onClick={() => this.new()} disabled={this.state.new}>{this.TEXT.btn_addNew}</button>
+            <button className="btn" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>{this.TEXT.btn_removeAll}</button>
           </div>
 
           <Alerts alerts={this.props.stores.alertsStore}/>

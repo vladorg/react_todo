@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function(props) {
-  let {order, item, save, ...others} = props;
+  let {order, textSave, item, save, ...others} = props;
 
   return (
     <div className="item">
@@ -9,7 +9,7 @@ export default function(props) {
         <span>{order}.</span>
         <input ref={item}/>
       </div>
-      <button className="btn" onClick={() => save()}>Save</button>
+      <button className="btn" onClick={() => save()}>{textSave}</button>
     </div>
   );
 
