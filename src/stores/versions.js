@@ -2,11 +2,18 @@ class Versions {
 
   versions = [    
     {
-      ver: '5.1',
+      ver: '6.0',
       changes: [
-        'add important && compare btns;',
+        'add localization support;',
+        'stylization for components.'
       ],
       current: true
+    },
+    {
+      ver: '5.1',
+      changes: [
+        'add important && complete btns;',
+      ]
     },
     {
       ver: '5.0',

@@ -5,28 +5,34 @@ export default class {
   constructor(rootStore) {
     this.rootStore = rootStore;
     this.texts = this.rootStore.textsStore;
+    this.icons = this.rootStore.icons;
+    this.delay = 5000;
   }
 
   @observable alerts = [
     {
       name: 'save',
       content: this.texts.alert_save,
-      active: false
+      active: false,
+      icon: this.icons.iconCompleted
     },
     {
       name: 'remove',
       content: this.texts.alert_remove,
-      active: false
+      active: false,
+      icon: this.icons.iconImportant
     },
     {
       name: 'remove_all',
       content: this.texts.alert_removeAll,
-      active: false
+      active: false,
+      icon: this.icons.iconImportant
     },
     {
       name: 'error',
       content: this.texts.alert_errorAction,
-      active: false
+      active: false,
+      icon: this.icons.iconError
     }
   ];
 

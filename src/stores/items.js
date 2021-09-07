@@ -55,6 +55,13 @@ export default class {
     this.items[i].active = true;
   }
 
+  // cancel item write, set cache value & set read only status
+  @action cancel(id) {
+    let i = this.index(id);
+    this.items[i].text = this.items[i].cache;
+    this.items[i].active = false;
+  }
+
 
 
   /* *** API BACK *** */
@@ -89,6 +96,7 @@ export default class {
       return api.change(this.TOKEN, id, txt).then(res => {
         if (res) {
           this.items[i].text = txt;
+          this.items[i].cache = txt;
           this.items[i].active = false;
           resolve();
         } else {

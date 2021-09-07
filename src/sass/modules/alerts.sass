@@ -1,21 +1,51 @@
 .alert
   position: relative
   background: #eee
-  padding: 32px
+  padding: 24px 42px
   z-index: 100
   border: 1px solid #777
   border-radius: 4px
+  min-width: 300px
+  font-weight: 700
+  animation: alert .2s
   &__close
     position: absolute
-    top: 4px
-    right: 4px
-    border: 1px solid #000
     cursor: pointer
+    top: 50%
+    right: 8px
+    transform: translateY(-50%)
+    border: none
+    border-radius: 50%
+    width: 20px
+    height: 20px
+    background: #000
+    color: #fff
+    display: flex
+    justify-content: center
+    align-items: center
+    line-height: 1
+    transition: all .2s
     &:hover
       background: #fff
+      color: #000
   &__text
   &:not(:last-child)
     margin-bottom: 16px
+
+  &--success
+    background: #baffba
+  &--warning
+    background: #ffff8e
+  &--error
+    background: #ffbaba
+
+
+
+  .icon
+    position: absolute
+    top: 50%
+    left: 10px
+    transform: translateY(-50%)
 
 .alerts
   position: fixed

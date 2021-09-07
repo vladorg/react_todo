@@ -5,7 +5,7 @@
 ---
 
 <p>This is a to do list.</p>
-<p>Current vesion: <code>5.1</code> .</p>
+<p>Current vesion: <code>6.0</code> .</p>
 
 ---
 

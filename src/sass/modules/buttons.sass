@@ -1,0 +1,39 @@
+.btn
+  font-size: 16px
+  margin: 0 8px
+  border: 1px solid #ddd
+  background: none
+  padding: 4px
+  border-radius: 4px
+  cursor: pointer
+  font-family: 'opensans'
+
+  &:disabled:hover
+    cursor: no-drop
+
+  &:not(:disabled):hover
+    background: #999
+    color: #fff
+    border-color: #999
+  
+  &:hover
+    transition: all .2s
+
+
+.item
+  &--important
+    .btn 
+      &--important
+        color: #d81818
+        border-color: #d81818
+        &:hover
+          background: #d81818
+          border-color: #d81818
+  &--completed
+    .btn 
+      &--completed
+        color: #009400
+        border-color: #009400
+        &:hover
+          background: #009400
+          border-color: #009400

@@ -3,7 +3,7 @@ export default class {
   /* General */
   siteName = 'Сайт.com';
   author = 'Владислав Пшеничный';
-  version = '5.0';
+  version = '6.0';
   copyright = 'Copyright 2021';
 
   /* Nav */
@@ -15,6 +15,8 @@ export default class {
   alert_remove = 'Удалено успешно!';
   alert_removeAll = 'Все заметки удалены!';
   alert_errorAction = 'Что-то пошло не так... Повторите попытку!';
+  alert_confirm_del = 'Удалить заметку?';
+  alert_confirm_delAll = 'Удалить все заметки?';
 
   /* Buttons */
   btn_save = 'Сохранить';
@@ -22,6 +24,9 @@ export default class {
   btn_remove = 'Удалить';
   btn_removeAll = 'Удалить все';
   btn_edit = 'Изменить';
+  btn_comp = 'Отметить как выполненное';
+  btn_imp = 'Отметить как важное';
+  btn_cancel = 'Отменить';
 
   /* Versions */
   versions_title = 'Версия';

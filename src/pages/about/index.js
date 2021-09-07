@@ -41,7 +41,7 @@ class About extends React.Component {
       <div className="container">
         <h1>{this.TEXT.about_title}</h1>
 
-        <div className="content">
+        <div className={styles.content+' content'}>
           <p>{this.TEXT.about_row1}</p>
           <p>{this.TEXT.about_authorTitle} <span>{this.TEXT.author}</span>.</p>
           <p>{this.TEXT.about_versionTitle} <span>{this.TEXT.version}</span>.</p>

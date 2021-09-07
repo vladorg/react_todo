@@ -1,6 +1,7 @@
 import React from 'react';
 import {navList} from '~/router';
 import withStore from '~/hocs/withStore';
+import Languages from '~c/ui/language';
 
 
 class Header extends React.Component {
@@ -26,7 +27,8 @@ class Header extends React.Component {
           <div className="logo">{this.TEXT.siteName}</div>
           <nav className="nav">
             {navList}
-          </nav>        
+          </nav>     
+          <Languages/>   
         </div>
       </div>
     )
