@@ -1,27 +1,38 @@
 import React from 'react';
-
 import Home from '~p/home';
 import About from '~p/about';
 import Error404 from '~p/404';
+
+import store from '~s';
+const TEXT = store.textsStore;
 
 const routes = [
   {
     name: 'home',
     path: '/',
     component: () => <Home/>,
-    exact: true
+    exact: true,
+    menu: true,
+    placeholder: TEXT.nav_home
   },
   {
     name: 'about',
     path: '/about',
     component: () => <About/>,
-    exact: true
+    exact: true,
+    menu: true,
+    placeholder: TEXT.nav_about
   },
+
+
+  
   {
     name: '404',
-    path: '**',
+    path: '**',    
     component: () => <Error404/>,
-    exact: false
+    exact: false,
+    menu: false,
+    placeholder: null
   }
 ]
 

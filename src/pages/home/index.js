@@ -96,6 +96,25 @@ class Home extends React.Component {
       this.alertsModel.show('error');
     });    
   }
+
+
+  // add / remove important status for item
+  important(id, flag) {
+    if (flag !== true && flag !== false) {
+      console.log('Error in make important... Params must be: (int, bool)'); 
+      return
+    }
+    this.itemsModel.important(id, flag);
+  }
+
+  // add / remove completed status for item
+  completed(id, flag) {
+    if (flag !== true && flag !== false) {
+      console.log('Error in make completed... Params must be: (int, bool)'); 
+      return
+    }
+    this.itemsModel.completed(id, flag);
+  }
   
 
 
@@ -112,13 +131,20 @@ class Home extends React.Component {
     if (!this.state.loaded) {
       return <Loader/>
     } else if (this.state.error) {
-      return <ErrorLoad/>
+      return <ErrorLoad text={this.TEXT.home_errorLoad}/>
     }
 
     let emptyTxt = this.itemsModel.isEmpty ? this.TEXT.home_emptyItems : null;
 
     // generate items list
     let itemsList = this.itemsModel.items.map((it, i) => {
+
+      let class_name = 'item ';
+      if (it.important) {
+        class_name += 'item--important ';
+      } else if (it.completed) {
+        class_name += 'item--completed ';
+      }
 
       // button is a different in the active state
       let btn;
@@ -129,7 +155,7 @@ class Home extends React.Component {
       }
 
       return (
-        <div key={it.id} className="item">
+        <div key={it.id} className={class_name}>
           <div className="item__wrap">
             <span>{++i}.</span>
             <input 
@@ -138,7 +164,9 @@ class Home extends React.Component {
               value={it.text} 
               readOnly={!it.active}
             />
-          </div>        
+          </div>
+          <button className="btn" onClick={() => this.important(it.id, !it.important)} disabled={it.completed}>imp</button>
+          <button className="btn" onClick={() => this.completed(it.id, !it.completed)} disabled={it.important}>comp</button>
           {btn}
           <button className="btn" onClick={() => this.remove(it.id)}>{this.TEXT.btn_remove}</button>
         </div>

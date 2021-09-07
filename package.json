@@ -1,7 +1,7 @@
 {
-  "name": "weather-app",
+  "name": "todo-list",
   "version": "1.0.0",
-  "description": "this is a my new react app",
+  "description": "this is a my first react app",
   "main": "index.js",
   "scripts": {
     "d": "webpack-dev-server --mode development --open",
@@ -10,12 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
     "jquery": "^1.9.1",
     "mobx": "^5.10.1",
     "mobx-react": "^6.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-bootstrap": "^1.6.1",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1"
   },

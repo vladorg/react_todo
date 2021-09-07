@@ -1,12 +1,12 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 import routes from './routes';
 
 
-const routesList = routes.map((route, i) => {
+const routesList = routes.map(route => {
   return (
     <Route  
-      key={i}
+      key={route.name}
       path={route.path}
       component={route.component}
       exact={route.exact}
@@ -14,11 +14,27 @@ const routesList = routes.map((route, i) => {
   )
 });
 
+const navList = routes.map(route => {
+  if (route.menu) {
+    return (
+      <NavLink 
+        key={route.name}
+        to={route.path}
+        activeClassName="activeLink" 
+        exact
+      >
+        {route.placeholder}
+      </NavLink>
+    )
+  }  
+});
+
 let routesMap = {};
 routes.map(route => {
   routesMap[route.name] = route.path;
 });
 
-export {routesList, routesMap};
+
+export {routesList, navList, routesMap};
 
 

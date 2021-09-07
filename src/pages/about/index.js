@@ -7,12 +7,36 @@ import styles from './about.scoped.css';
 class About extends React.Component {
 
   constructor(props) {
-    super(props);
-    
+    super(props);    
     this.TEXT = this.props.stores.textsStore;
+    this.versions = this.props.stores.versions;
   }
 
   render() {
+
+    let versionsRows = this.versions.versions.map((ver, i) => {
+      let changes = ver.changes.map((change, index) => <li key={index}>- {change}</li>);
+      let verTitle = () => {
+        if (ver.current) {
+          return <td> {ver.ver} <br/> {this.TEXT.versions_current}</td>
+        }
+        return <td>{ver.ver}</td>
+      }
+
+      return (
+        <tr key={i}>
+          {verTitle()}
+          <td>
+            <ul>
+              {changes}
+            </ul>
+          </td>
+        </tr>
+      );
+
+    });
+
+
     return (
       <div className="container">
         <h1>{this.TEXT.about_title}</h1>
@@ -26,52 +50,12 @@ class About extends React.Component {
             <table className={styles.table+' table'}>
               <thead>
                 <tr>
-                  <th>Version</th>
-                  <th>Changes</th>
+                  <th>{this.TEXT.versions_title}</th>
+                  <th>{this.TEXT.versions_changes}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>5.0 <br/>(current)</td>
-                  <td>
-                    <ul>
-                      <li>- add 404 page</li>
-                      <li>- update routing</li>
-                      <li>- create texts store</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4.0</td>
-                  <td>
-                    <ul>
-                      <li>- add backend Api support</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3.0</td>
-                  <td>
-                    <ul>
-                      <li>- add actions alerts</li>
-                      <li>- add withStore HOC</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2.0</td>
-                  <td>
-                    <ul>
-                      <li>- update webpack config. Added <strong>sass</strong> and <strong>postcss</strong> loaders. Added autoprefixer;</li>
-                      <li>- all styles update on <strong>SASS</strong>;</li>
-                      <li>- update <strong>About</strong> page: add versions table.</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1.0</td>
-                  <td>Release stable version.</td>
-                </tr>
+                {versionsRows}  
               </tbody>
             </table>
           </div>

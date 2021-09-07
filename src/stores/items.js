@@ -5,6 +5,7 @@ export default class {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
+    this.TEXT = this.rootStore.textsStore;
     this.TOKEN = this.rootStore.token;
     this.loaded = false;
   }
@@ -56,7 +57,6 @@ export default class {
 
 
 
-
   /* *** API BACK *** */
 
   // load items from --back--
@@ -85,7 +85,7 @@ export default class {
   @action save(id) {
     return new Promise((resolve, reject) => {
       let i = this.index(id);
-      let txt = this.items[i].text == '' ? 'Empty note...' : this.items[i].text;
+      let txt = this.items[i].text == '' ? this.TEXT.home_emptyField : this.items[i].text;
       return api.change(this.TOKEN, id, txt).then(res => {
         if (res) {
           this.items[i].text = txt;
@@ -104,13 +104,15 @@ export default class {
   @action add(txt) {
     return new Promise((resolve, reject) => {
       let id = this.maxId + 1;
-      txt == '' ? txt = 'Empty note...' : null;
+      txt == '' ? txt = this.TEXT.home_emptyField : null;
       return api.add(this.TOKEN, id, txt).then(res => {
         if (res) {
           this.items.push({
             id: id,
             text: txt,
-            active: false
+            active: false,
+            completed: false,
+            important: false
           });
           resolve();
         } else {
@@ -138,9 +140,7 @@ export default class {
         }
         console.log(`remove: ${res}`);
       }); 
-    });
-    
-       
+    });  
   }
 
 
@@ -161,37 +161,37 @@ export default class {
   }
 
 
+  // make item important on --back--
+  @action important(id, flag) {
+    return new Promise((resolve, reject) => {
+      let i = this.index(id);
+      return api.important(this.TOKEN, id, flag).then(res => {
+        if (res) {
+          this.items[i].important = flag;
+          resolve();
+        } else {
+          reject();
+        }
+        console.log(`make important: ${res}`);
+      });
+    });
+  }
+
+
+  // make item completed on --back--
+  @action completed(id, flag) {
+    return new Promise((resolve, reject) => {
+      let i = this.index(id);
+      return api.completed(this.TOKEN, id, flag).then(res => {
+        if (res) {
+          this.items[i].completed = flag;
+          resolve();
+        } else {
+          reject();
+        }
+        console.log(`make completed: ${res}`);
+      });
+    });
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-  // @observable items = [
-  //   {
-  //     id: 101,
-  //     text: 'Create React App',
-  //     active: false
-  //   },
-  //   {
-  //     id: 102,
-  //     text: 'Connect Mobx',
-  //     active: false
-  //   },
-  //   {
-  //     id: 103,
-  //     text: 'Add React Router',
-  //     active: false
-  //   },
-  //   {
-  //     id: 104,
-  //     text: 'Make a new component',
-  //     active: false
-  //   }
-  // ];

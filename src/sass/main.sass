@@ -2,6 +2,7 @@
 @import "./modules/fonts.sass"
 @import "./modules/alerts.sass"
 @import "./modules/loaders.sass"
+@import "./modules/dropdown.sass"
 
 @import "./parts/header.sass"
 @import "./parts/footer.sass"
@@ -83,6 +84,18 @@ strong
     font-weight: 700
     display: inline-block
     margin-right: 4px
+  
+  &--important
+    border-color: #f00
+    box-shadow: 0 0 5px #f00
+    input
+      font-weight: 700
+  &--completed
+    border-color: #f1f1f1
+    .item__wrap
+      opacity: .5
+    input
+      text-decoration: line-through
 
 .controls
   margin-top: 48px
@@ -119,4 +132,14 @@ strong
     li
       &:not(:last-child)
         margin-bottom: 12px
+
+
+
+
+body
+  &.dark
+    background: #000
+    color: #fff
+  &.light
+    background: grey
     
