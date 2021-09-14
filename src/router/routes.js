@@ -2,14 +2,16 @@ import React from 'react';
 import Home from '~p/home';
 import About from '~p/about';
 import Error404 from '~p/404';
-
 import store from '~s';
+
 const TEXT = store.textsStore;
+const ROOT = '/';
+//const ROOT = '/react_todo/'; for deploy
 
 const routes = [
   {
     name: 'home',
-    path: '/',
+    path: `${ROOT}`,
     component: () => <Home/>,
     exact: true,
     menu: true,
@@ -17,7 +19,7 @@ const routes = [
   },
   {
     name: 'about',
-    path: '/about',
+    path: `${ROOT}about`,
     component: () => <About/>,
     exact: true,
     menu: true,

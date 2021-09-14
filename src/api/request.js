@@ -1,4 +1,5 @@
 const baseUrl = 'http://react-todo-api/items/';
+//const baseUrl = '/react_todo/api/'; // for deploy
 
 export default function(url, options = {}, base = baseUrl) {
   return fetch(base + url, options).then(response => {
