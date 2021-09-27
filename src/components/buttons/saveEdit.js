@@ -9,11 +9,11 @@ function saveEdit(props) {
   let btn;
 
   if (active) {
-    btn = <button className="btn" onClick={() => save()} title={TEXT.btn_save}>{ICONS.iconSave}</button>
+    btn = <button className="btn btn-success" onClick={() => save()} title={TEXT.btn_save}>{ICONS.iconSave}</button>
   } else if (completed) {
-    btn =  <button className="btn" title={TEXT.btn_edit} disabled>{ICONS.iconEdit}</button>
+    btn =  <button className="btn btn-secondary" title={TEXT.btn_edit} disabled>{ICONS.iconEdit}</button>
   } else {
-    btn =  <button className="btn" onClick={() => activate()} title={TEXT.btn_edit}>{ICONS.iconEdit}</button>
+    btn =  <button className="btn btn-secondary" onClick={() => activate()} title={TEXT.btn_edit}>{ICONS.iconEdit}</button>
   }
 
   return btn;

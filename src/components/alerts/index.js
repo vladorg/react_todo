@@ -1,11 +1,10 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import withStore from '~/hocs/withStore';
 
-@observer export default class extends React.Component {
+class Alerts extends React.Component {
 
   alertsModel = this.props.alerts;
   delay = this.alertsModel.delay;
-
   
 
   hide(e, name) {
@@ -67,9 +66,6 @@ import {observer} from 'mobx-react';
       </>
     )
   }
-
-
-
-
-
 }
+
+export default withStore(Alerts);

@@ -2,12 +2,19 @@ class Versions {
 
   versions = [    
     {
+      ver: '7.0',
+      changes: [
+        'update MobX version (delete mobx decorators from stores)',
+        'add Bootstrap & restyling layout'
+      ],
+      current: true
+    },
+    {
       ver: '6.0',
       changes: [
         'add localization support;',
         'stylization for components.'
-      ],
-      current: true
+      ]
     },
     {
       ver: '5.1',

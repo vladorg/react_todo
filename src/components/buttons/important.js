@@ -8,7 +8,7 @@ function important(props) {
   
   return (
     <button 
-      className="btn btn--important"
+      className="btn btn-warning"
       onClick={() => callback()} 
       disabled={disabled} 
       title={TEXT.btn_imp}

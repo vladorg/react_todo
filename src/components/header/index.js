@@ -1,7 +1,8 @@
 import React from 'react';
-import {navList} from '~/router';
+import {navList, routesMap} from '~/router';
 import withStore from '~/hocs/withStore';
 import Languages from '~c/ui/language';
+import { withRouter } from 'react-router';
 
 
 class Header extends React.Component {
@@ -9,6 +10,8 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.TEXT = this.props.stores.textsStore;
+
+    console.log(this.props);
   }
 
   changeTheme(id) {
@@ -22,13 +25,15 @@ class Header extends React.Component {
   render() {
     
     return (
-      <div className="container">
-        <div className="header">
-          <div className="logo">{this.TEXT.siteName}</div>
-          <nav className="nav">
-            {navList}
-          </nav>     
-          <Languages/>   
+      <div className="header bg-success bg-gradient text-light pt-3 pb-3">
+        <div className="container"> 
+          <div className="header__inner d-flex justify-content-center align-items-center">     
+            <div onClick={() => this.props.history.push(routesMap.home)} className="logo">{this.TEXT.siteName}</div>
+            <nav className="nav">
+              {navList}
+            </nav>     
+            <Languages/>   
+          </div>
         </div>
       </div>
     )
@@ -36,4 +41,4 @@ class Header extends React.Component {
   
 }
 
-export default withStore(Header);
+export default withStore(withRouter(Header));

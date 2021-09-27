@@ -3,7 +3,7 @@ export default class {
   /* General */
   siteName = 'Todo.com';
   author = 'Vladislav Pshenichniy';
-  version = '6.0';
+  version = '7.0';
   copyright = 'Copyright 2021';
 
   /* Nav */

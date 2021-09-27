@@ -1,8 +1,6 @@
 .header
   display: flex
   align-items: center
-  padding: 16px 0
-  border-bottom: 1px solid #777
   margin-bottom: 30px
 
 .nav
@@ -11,29 +9,21 @@
 .logo
   font-size: 30px
   font-weight: 700
+  cursor: pointer
 
 .nav
   display: flex
-
   a
-    font-size: 20px
-    color: #000
-    text-decoration: none
-
-    &:hover
-      text-decoration: underline
-
     &:not(:last-child)
       margin-right: 16px
 
-.language
+.languages
   margin-left: auto
   button
-    margin: 0 8px
-    border: none
-    padding: 0
+    margin: 0 4px
     transition: all .2s
     cursor: pointer
+    text-transform: uppercase
     &:hover
       transform: scale(1.1)
     img

@@ -47,9 +47,9 @@ class About extends React.Component {
           <p>{this.TEXT.about_versionTitle} <span>{this.TEXT.version}</span>.</p>
           <div className="history">
           <h3>{this.TEXT.about_historyTitle}</h3>
-            <table className={styles.table+' table'}>
+            <table className={styles.table+' table table-light1 table-striped'}>
               <thead>
-                <tr>
+                <tr className="table-success fw-bold">
                   <th>{this.TEXT.versions_title}</th>
                   <th>{this.TEXT.versions_changes}</th>
                 </tr>

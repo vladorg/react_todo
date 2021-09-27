@@ -9,9 +9,9 @@ function delCancel(props) {
   let btn;
 
   if (active) {
-    btn = <button className="btn" onClick={() => cancel()} title={TEXT.btn_cancel}>{ICONS.iconCancel}</button>;
+    btn = <button className="btn btn-secondary" onClick={() => cancel()} title={TEXT.btn_cancel}>{ICONS.iconCancel}</button>;
   } else {
-    btn =  <button className="btn" onClick={() => remove()} title={TEXT.btn_remove}>{ICONS.iconRemove}</button>;
+    btn =  <button className="btn btn-danger" onClick={() => remove()} title={TEXT.btn_remove}>{ICONS.iconRemove}</button>;
   }
 
   return btn;

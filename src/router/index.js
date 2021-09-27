@@ -20,7 +20,8 @@ const navList = routes.map(route => {
       <NavLink 
         key={route.name}
         to={route.path}
-        activeClassName="activeLink" 
+        activeClassName="disabled" 
+        className="btn btn-dark"
         exact
       >
         {route.placeholder}

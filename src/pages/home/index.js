@@ -170,9 +170,14 @@ class Home extends React.Component {
         class_name += 'item--important ';
       } else if (it.completed) {
         class_name += 'item--completed ';
-      } else if (it.active) {
+      }
+
+      if (it.active) {
         class_name += 'item--active ';
       }
+
+      let input_className = !it.active ? 'form-control disabled' : 'form-control ';
+      
 
 
       return (
@@ -180,7 +185,7 @@ class Home extends React.Component {
           <div className="item__wrap">
             <span>{++i}.</span>
             <input 
-              className={!it.active ? "disabled" : null} 
+              className={input_className} 
               onChange={e => this.change(e, it.id)}
               value={it.text} 
               readOnly={!it.active}
@@ -222,8 +227,8 @@ class Home extends React.Component {
               : null}          
           </div>
           <div className="controls">
-            <button className="btn" onClick={() => this.new()} disabled={this.state.new}>{this.TEXT.btn_addNew} {this.ICONS.iconAdd}</button>
-            <button className="btn" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>{this.TEXT.btn_removeAll} {this.ICONS.iconRemove}</button>
+            <button className="btn btn-warning me-2" onClick={() => this.new()} disabled={this.state.new}>{this.TEXT.btn_addNew} {this.ICONS.iconAdd}</button>
+            <button className="btn btn-danger" onClick={() => this.removeAll()} disabled={this.itemsModel.isEmpty}>{this.TEXT.btn_removeAll} {this.ICONS.iconRemove}</button>
           </div>
 
           <Alerts alerts={this.props.stores.alertsStore}/>

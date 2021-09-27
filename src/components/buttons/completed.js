@@ -8,7 +8,7 @@ function completed(props) {
   
   return (
     <button 
-      className="btn btn--completed"
+      className="btn btn-success"
       onClick={() => callback()} 
       disabled={disabled} 
       title={TEXT.btn_comp}

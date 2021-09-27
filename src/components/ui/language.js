@@ -7,6 +7,7 @@ class Language extends React.Component {
   constructor(props) {
     super(props);
     this.storage = this.props.stores.storage;
+    this.languages = this.props.stores.languages;
   }
 
   setLang(code) {
@@ -15,18 +16,18 @@ class Language extends React.Component {
   }
   
   render() {
+
+    let langs = this.languages.map((lang, i) => {
+      return (
+        <button key={i} disabled={this.storage.siteLang == lang} className="btn btn-dark" onClick={() => this.setLang(lang)}>
+          {lang}
+        </button>
+      )
+    })
     
     return (
-      <div className="language">
-        <button onClick={() => this.setLang('en')}>
-          <img src="./images/eng.svg" alt="en" />
-        </button>
-        <button onClick={() => this.setLang('ua')}>
-          <img src="./images/ukr.svg" alt="ua" />
-        </button>
-        <button onClick={() => this.setLang('ru')}>
-          <img src="./images/rus.svg" alt="ru" />
-        </button>
+      <div className="languages">
+        {langs}
       </div>
     )
   }

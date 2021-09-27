@@ -3,7 +3,7 @@
 @import "./modules/alerts.sass"
 @import "./modules/loaders.sass"
 @import "./modules/dropdown.sass"
-@import "./modules/buttons.sass"
+// @import "./modules/buttons.sass"
 
 @import "./parts/header.sass"
 @import "./parts/footer.sass"
@@ -32,35 +32,35 @@ strong
   font-weight: 700
 
 
-.activeLink
-  color: green !important
-
 
 .item__wrap
   display: flex
   align-items: center
-  margin-right: auto
+  margin-right: 42px
   width: 100%
 
 .item
   display: flex
   align-items: center
-  padding: 8px 12px
-  max-width: 75%
+  padding: 16px 12px
   border: 1px solid #ddd
   border-radius: 4px
-  box-shadow: 0 0 5px grey
+  box-shadow: 0 0 5px #bdbdbd
   transition: all .2s
   &:not(:last-child)
     margin-bottom: 24px
 
   input
-    font-size: 18px
-    padding: 4px
+    font-size: 16px
+    padding: 8px
     width: 100%
+
+    &:read-only
+      font-style: italic
 
     &:focus
       outline: none
+      box-shadow: none
 
     &.disabled
       border: none
@@ -69,20 +69,30 @@ strong
     font-weight: 700
     display: inline-block
     margin-right: 4px
+    font-size: 24px
+  
+  .btn
+    margin: 0 4px
+    transition: all .2s
   
   &--important
     border-color: #f00
     box-shadow: 0 0 5px #f00
+    transform: scale(1.02)
     input
       font-weight: 700
+    .btn
+      &-warning
+        transform: scale(1.2)
   &--completed
-    border-color: #009400
     .item__wrap
-      opacity: .5
+      opacity: .4
     input
       text-decoration: line-through
+    .btn
+      &-success
+        transform: scale(1.2)
   &--active
-    border-color: #000
     transform: scale(1.04)
 
 .controls
@@ -114,8 +124,12 @@ strong
     text-align: center
     vertical-align: middle
   td
+    font-weight: 700
     + td
       text-align: left
+      font-weight: 400
+  th
+    border-bottom-color: #ddd!important
   ul
     li
       &:not(:last-child)

@@ -8,6 +8,7 @@ class Stores {
   constructor() {
     this.storage = localStorage;
     this.token = this.storage.getItem('accessToken'); 
+    this.languages = ['en', 'ua', 'ru'];
 
     this.textsStore = new textsModel(this);
     this.versions = new verModel(this);       

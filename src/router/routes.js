@@ -5,8 +5,8 @@ import Error404 from '~p/404';
 import store from '~s';
 
 const TEXT = store.textsStore;
-const ROOT = '/';
-//const ROOT = '/react_todo/'; for deploy
+ const ROOT = '/';
+//const ROOT = '/react_todo/';
 
 const routes = [
   {
