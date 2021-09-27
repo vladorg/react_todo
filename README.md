@@ -14,7 +14,9 @@
   <li>
     <code>add Bootstrap & restyling layout</code>
   </li>
+</ul>
 
+---
 <p><a href="http://w99762ln.beget.tech/react_todo/" target="_blank">LIVE DEMO</a></p>
 <p>Do not judge strictly :)</p>
 <h3>Have fun! :)</h3>
