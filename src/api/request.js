@@ -1,4 +1,5 @@
-const baseUrl = 'http://react-todo-api/items/';
+//const baseUrl = 'http://react-todo-api/items/'; // old
+const baseUrl = 'http://w99762ln.beget.tech/react_todo/api/';
 //const baseUrl = '/react_todo/api/'; // for deploy
 
 export default function(url, options = {}, base = baseUrl) {
